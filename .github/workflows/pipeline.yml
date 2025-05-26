@@ -22,4 +22,6 @@ jobs:
       - name: jest 
         run: npm run test
       - name: playwright e2e testing
-        run: npm run test-e2e
+        run: npm ci
+        run: npx playwright install --with-deps
+        run: npx playwright test
