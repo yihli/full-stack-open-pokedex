@@ -5,7 +5,7 @@ on:
     branches:
     - main
   pull_request:
-    # pull requests to main, when they are opened, or existing ones are updated
+    # pull requests to main, or when they are opened, or existing ones are updated
     branches: [main]
     types: [opened, synchronize]
 
@@ -13,10 +13,12 @@ jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-24.04
     steps:
+      # generally necessary
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+        # actual pipline
       - name: Install dependencies
         run: npm install
       - name: Check style 
@@ -31,4 +33,5 @@ jobs:
           npx playwright install --with-deps
           npx playwright test
       - name: Trigger deployment
+        if: ${{ github.event_name == 'push' }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
