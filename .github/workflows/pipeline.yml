@@ -1,13 +1,13 @@
-name: Deployment pipeline
+name: deployment pipeline
 
 on: 
   push:
     branches:
     - main
-    pull_request:
-      # pull requests to main, when they are opened, or existing ones are updated
-      branches: [main]
-      types: [opened, synchronize]
+  pull_request:
+    # pull requests to main, when they are opened, or existing ones are updated
+    branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   simple_deployment_pipeline:
