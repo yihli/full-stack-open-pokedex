@@ -35,7 +35,7 @@ jobs:
   # can only run when simple deployment pipeline completes sucessfully.
   tag_release:
     needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Trigger deployment
         # if statement in yml
