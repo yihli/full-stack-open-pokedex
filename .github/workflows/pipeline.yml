@@ -32,7 +32,7 @@ jobs:
           npm ci
           npx playwright install --with-deps
           npx playwright test
-  # can only run when simple deployment pipeline completes sucessfully.
+  # can only run when simple deployment pipeline completes sucessfully
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-24.04
