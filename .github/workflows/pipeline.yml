@@ -32,6 +32,11 @@ jobs:
           npm ci
           npx playwright install --with-deps
           npx playwright test
+  # can only run when simple deployment pipeline completes sucessfully.
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
       - name: Trigger deployment
         # if statement in yml
         if: ${{ github.event_name == 'push' }}
