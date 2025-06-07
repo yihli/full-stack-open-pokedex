@@ -32,11 +32,18 @@ jobs:
           npm ci
           npx playwright install --with-deps
           npx playwright test
+  # can only run when simple deployment pipeline completes sucessfully.
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-24.04
+    steps:
       - name: Trigger deployment
         # if statement in yml
         if: ${{ github.event_name == 'push' }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
       - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' }}
         uses: anothrNick/github-tag-action@1.73.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
