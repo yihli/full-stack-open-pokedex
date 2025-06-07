@@ -34,9 +34,10 @@ jobs:
           npx playwright test
   # can only run when simple deployment pipeline completes sucessfully
   tag_release:
-    needs: [simple_deployment_pipeline]
     runs-on: ubuntu-24.04
+    needs: [simple_deployment_pipeline]
     steps:
+      - uses: actions/checkout@v4
       - name: Trigger deployment
         # if statement in yml
         if: ${{ github.event_name == 'push' }}
